@@ -8,73 +8,49 @@ the user chooses to quit.
 
 # Import the necessary modules, constants and the Game class
 import pygame
-from checkers.constants import height, width, sq_size, red, FPS
-from checkers.game import Game
+import sys
+from checkers.constants import height, width
+from checkers.menus import MainMenu, SettingsMenu
+from checkers.game_loop import game_loop
 
-# TO DO
-# force take (all options) -> modify code so that a moves list of all pieces are created instead of just the selected
-# piece but still highlights the selected pieces moves
-# Highlight the pieces that are forced to move because they can take
 
-# settings screen
-# home screen
-# game over screen
-# bug double jump when king
+# TODO: game over screen
+
+# Initialise pygame
+pygame.init()
 
 # We initialise our window with the correct settings
 window = pygame.display.set_mode((height, width))
 pygame.display.set_caption('Checkers')
 
-# Function that will get the row and column based on mouse location
-def get_row_col_from_mouse(pos):
-    # Get x,y coordinates of the mouse
-    x, y = pos
-    # Determine row and column mouse is located based on some math logic
-    row = y // sq_size
-    col = x // sq_size
-    # Return these values
-    return row, col
-
 # Main function of code
 def main():
-    # Initialise run variable
-    run = True
-    # Initialise clock using the pygame function
-    clock = pygame.time.Clock()
-    # Create an instance of the Game class
-    game = Game(window)
+    current_menu = MainMenu(width, height)
+    running = True
 
     # Main game loop
-    while run:
-        # Ticks based on the given FPS
-        clock.tick(FPS)
-
-        # Check to make sure there is a winner
-        if game.winner() is not None:
-            # Output winner
-            if game.winner() == red:
-                print("Red is the winner!")
-            else:
-                print("Blue is the winner!")
-
-        # For each event
+    while running:
         for event in pygame.event.get():
-            # Check the necessary event types
             if event.type == pygame.QUIT:
-                # Stops the game loop from running
-                run = False
+                print("Exiting...")
+                running = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                # Gets the location of mouse on click
-                row, col = get_row_col_from_mouse(pygame.mouse.get_pos())
-                # Selects the location of the click
-                game.select(row, col)
+                action = current_menu.handle_events(pygame.mouse.get_pos(), pygame.mouse.get_pressed())
+                if action == "settings":
+                    print("Opening Settings...")
+                    current_menu = SettingsMenu(width, height)
+                elif action == "menu":
+                    print("Returning to menu...")
+                    current_menu = MainMenu(width, height)
+                elif action == "pvp":
+                    game_loop()
 
-        # Update the game display / screen
-        game.update()
+        current_menu.draw(window)
+        pygame.display.flip()
 
-    # Exit the program
     pygame.quit()
+    sys.exit()
 
 # Runs the main body of code
 main()
