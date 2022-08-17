@@ -71,23 +71,20 @@ class Board:
         return None
 
     def get_valid_moves(self, piece):
-        if self.check_legal_move(piece.row, piece.col):
-            moves = {}
-            left = piece.col - 1
-            right = piece.col + 1
-            row = piece.row
-            place = piece.row, piece.col
+        moves = {}
+        left = piece.col - 1
+        right = piece.col + 1
+        row = piece.row
+        place = piece.row, piece.col
 
-            if piece.colour == red or piece.king:
-                moves.update(self._traverse_left(row - 1, max(row - 3, -1), -1, piece.colour, left))
-                moves.update(self._traverse_right(row - 1, max(row - 3, -1), -1, piece.colour, right))
-            if piece.colour == blue or piece.king:
-                moves.update(self._traverse_left(row + 1, min(row + 3, rows), 1, piece.colour, left))
-                moves.update(self._traverse_right(row + 1, min(row + 3, rows), 1, piece.colour, right))
+        if piece.colour == red or piece.king:
+            moves.update(self._traverse_left(row - 1, max(row - 3, -1), -1, piece.colour, left))
+            moves.update(self._traverse_right(row - 1, max(row - 3, -1), -1, piece.colour, right))
+        if piece.colour == blue or piece.king:
+            moves.update(self._traverse_left(row + 1, min(row + 3, rows), 1, piece.colour, left))
+            moves.update(self._traverse_right(row + 1, min(row + 3, rows), 1, piece.colour, right))
 
-            return moves, place
-
-        return
+        return moves, place
 
     def _traverse_left(self, start, stop, step, colour, left, skipped=[]):
         moves = {}
@@ -159,13 +156,3 @@ class Board:
             right += 1
 
         return moves
-
-    def check_legal_move(self, row, col):
-        piece = self.get_piece(row, col)
-        m, p = self.get_valid_moves(piece)
-        for moves in m:
-            r, c = moves
-            if row == r and col == c:
-                return True
-
-        return False

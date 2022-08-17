@@ -39,7 +39,6 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 row, col = get_row_col_from_mouse(pygame.mouse.get_pos())
-                # if game.turn == red:
                 game.select(row, col)
 
             if event.type == pygame.MOUSEBUTTONUP:

@@ -27,10 +27,8 @@ class Game:
         self._init()
 
     def select(self, row, col):
-        legal_move = self.check_legal_move(row, col)
-        if self.selected and legal_move:
+        if self.selected:
             result = self._move(row, col)
-            print(result)
             if not result:
                 self.selected = None
                 self.select(row, col)
@@ -76,16 +74,3 @@ class Game:
         elif self.turn == blue:
             self.turn = red
 
-    def check_legal_move(self, row, col):
-        self.board.check_legal_move(row, col)
-        """
-        piece = self.board.get_piece(row, col)
-        m, p = self.board.get_valid_moves(piece)
-        for moves in m:
-            r, c = moves
-            if row == r and col == c:
-                return True
-
-        return False
-        """
-        return
