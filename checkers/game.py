@@ -31,7 +31,8 @@ class Game:
     # Method that updates the game board and displays the valid moves
     def update(self):
         self.board.draw(self.win)
-        self.draw_valid_moves(self.place, self.valid_moves)
+        if self.selected:
+            self.draw_valid_moves(self.place, self.valid_moves)
         pygame.display.update()
 
     # Method that is used to reset the game by calling the ._init method()
@@ -45,10 +46,7 @@ class Game:
             result = self._move(row, col)
             # If the highlighted square isn't valid for whatever reason we deselect the piece
             if not result:
-                print("Here")
                 self.selected = None
-                # And select the new click location instead
-                self.select(row, col)  # LOGIC TO ENSURE VALID SELECTION !!!!!!!!!!!!!
 
         # Get the piece based on location of selection
         piece = self.board.get_piece(row, col)
@@ -67,7 +65,7 @@ class Game:
         # Get the piece from Board class.get_piece method
         piece = self.board.get_piece(row, col)
         # Check to see if there is a piece, and we have a row, column and valid moves
-        if self.selected and piece == 0 and (row, col) and self.valid_moves:  # LOGIC TO ENSURE VALID SELECTION
+        if self.selected and piece == 0 and (row, col) in self.valid_moves:  # LOGIC TO ENSURE VALID SELECTION
             # Move piece to new position
             self.board.move(self.selected, row, col)
             # Add list of skipped pieces

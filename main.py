@@ -16,8 +16,6 @@ from checkers.game import Game
 # settings screen
 # home screen
 # game over screen
-# only allow correct clicks and correct end destination clicks
-# game logic will select blue if red turn but not highlight (just deselect initial piece if move isnt valid)
 # bug double jump when king
 
 # We initialise our window with the correct settings
