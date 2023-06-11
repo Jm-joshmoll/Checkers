@@ -12,7 +12,10 @@ from checkers.constants import height, width, sq_size, red, FPS
 from checkers.game import Game
 
 # TO DO
-# force take
+# force take (all options) -> modify code so that a moves list of all pieces are created instead of just the selected
+# piece but still highlights the selected pieces moves
+# Highlight the pieces that are forced to move because they can take
+
 # settings screen
 # home screen
 # game over screen

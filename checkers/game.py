@@ -3,6 +3,7 @@ This module defines the Game class which represents the game of checkers. It use
 rendering and the Board class to represent the game board. The Game class provides methods for initializing the game,
 selecting and moving pieces, and updating the graphics.
 """
+
 # Import the necessary modules, constants and the Board class
 import pygame
 from .constants import red, blue, green, sq_size
