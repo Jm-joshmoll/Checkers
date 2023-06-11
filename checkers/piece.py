@@ -1,6 +1,7 @@
 """
 This module defines the Piece class, which represents each checkers piece on the game board.
 """
+
 # import necessary packages and constants from constants.py file
 import pygame
 from .constants import glow, blue, red, sq_size, bCrown, rCrown, bLight, rLight

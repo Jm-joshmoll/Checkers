@@ -2,6 +2,7 @@
 This module contains constants and global settings used in the game program.
 """
 
+# import necessary packages
 import pygame
 
 # Define game settings
