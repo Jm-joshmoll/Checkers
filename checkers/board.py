@@ -132,15 +132,6 @@ class Board:
             moves.update(self._traverse_left(row + 1, min(row + 3, rows), 1, piece.colour, left))
             moves.update(self._traverse_right(row + 1, min(row + 3, rows), 1, piece.colour, right))
 
-        # MODIFY TO ALLOW CAPTURE OF ALL PIECES NOT JUST FURTHEST AWAY
-        # Check if there are any moves that involve capturing an enemy piece
-        capture_moves = {move: captures for move, captures in moves.items() if len(captures) > 0}
-        # If there are capture moves available, update the moves' dictionary to only include capture moves that are
-        # the furthest away
-        if capture_moves:
-            furthest_capture = max(capture_moves, key=lambda move: len(capture_moves[move]))
-            moves = {furthest_capture: capture_moves[furthest_capture]}
-
         return moves, place
 
     # Method that takes several arguments amd returns a dictionary of valid moves that a piece can make to its left
